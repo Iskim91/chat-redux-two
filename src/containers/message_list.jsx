@@ -12,6 +12,14 @@ class MessageList extends Component {
     this.props.setMessages(this.props.selectedChannel);
   }
 
+  componentDidMount() {
+    this.refresher = setInterval(this.fetchMessages, 5000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.refresher);
+  }
+
   renderMessages = () => {
     return this.props.messages.map((message) => {
       return <Message message={message} key={message.created_at} />;
